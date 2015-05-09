@@ -1,11 +1,11 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h3 style="overflow:hidden; white-space:nowrap; text-overflow:ellipsis; display: inline-block" class="panel-title">
-            <h3 style="display: inline-block;   margin-top: 0; margin-bottom: 0;">
+        <h3 id="currentPostHeader">
                 <?= htmlspecialchars($this->currentPost["Title"])?>
-            </h3>
         </h3>
-        <span style="float: right"><?= $this->currentPost["PostDate"]?></span>
+        <span style="float: right">
+            <?= $this->currentPost["PostDate"]?><br/>
+        </span>
     </div>
     <div class="panel-body" style="overflow:hidden;text-overflow:ellipsis;" >
         <?= $this->currentPost["Content"]?>
@@ -19,20 +19,18 @@
             <div  style="overflow:hidden;text-overflow:ellipsis;background-color:#ffffff;border: 1px solid #c0c0c0; border-radius: 10px;padding: 5px;" >
             <?=htmlspecialchars($comment["Content"])?>
             </div>
-            Автор:<?=htmlspecialchars($comment["AuthorName"]).","?>
-            Email: <?=htmlspecialchars($comment["AuthorEmail"])?>
+            Автор:<?=htmlspecialchars($comment["AuthorName"])?>
+            <?php if(htmlspecialchars($comment["AuthorEmail"])!=''){
+                echo ",  Email: ".htmlspecialchars($comment["AuthorEmail"]);
+            }?>
             <span style="float: right">
-                 Дата: <?php  if(isset($comment["CommentDate"]))
-                {
-                    echo htmlspecialchars($comment["CommentDate"]);
-                }?>
+                 Дата: <?=htmlspecialchars($comment["CommentDate"]);?>
             </span>
             <br/>
 
         </div>
     <?php endforeach ?>
     </div>
-
     <form action="/comments/addComment/<?= $this->currentPost["Id"]?>" method="post" class="form-horizontal" style="margin: 20px">
         <fieldset>
             <legend>Добавяе на коментари</legend>
@@ -50,7 +48,6 @@
                     </div>
                 </div>
             <?php endif ?>
-
             <div class="form-group">
                 <label for="textArea" class="col-lg-2 control-label">Коментар</label>
                 <div class="col-lg-10">

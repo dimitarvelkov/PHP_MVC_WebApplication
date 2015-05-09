@@ -3,7 +3,6 @@
         echo "<h1>Сжаляваме,  но към момента няма постове.</h1>";
     }
     ?>
-
     <?php foreach($this->posts as $post):?>
         <div class="panel panel-primary">
             <div class="panel-heading"  style="overflow:hidden; text-overflow:ellipsis;">
@@ -12,15 +11,15 @@
                         <h2 style="display: inline-block ; margin-top: 0; margin-bottom: 0">
                             <?=htmlspecialchars($post["Title"])?>
                         </h2>
-                        <div><?php if(isset($post["NumberOfComments"])){
-                                echo "Коментари: ".htmlspecialchars($post["NumberOfComments"]);
-                            }
-                            ?>
+                        <div>
+                            <?="Коментари: ".htmlspecialchars($post["NumberOfComments"]); ?>
                         </div>
                     </a>
                 </h3>
-                <div class="pull-right"> Показвания: <?=$post["VisitCounter"]?>
-                    <br/> Дата: <?=$post["PostDate"]?></div>
+                <div style="float: right">
+                    Показвания: <?=$post["VisitCounter"]?>
+                    <br/> Дата: <?=$post["PostDate"]?>
+                </div>
             </div>
             <div class="panel-body" style="overflow:hidden;  text-overflow:ellipsis;">
                 <?php
@@ -29,7 +28,6 @@
                 echo  htmlspecialchars($rest)
                 ?>
                 <a href="/posts/getPost/<?=$post["Id"]?>">Виж още</a>
-
             </div>
         </div>
     <?php endforeach ?>

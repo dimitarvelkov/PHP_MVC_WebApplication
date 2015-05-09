@@ -7,6 +7,7 @@
         } ?>
     </title>
     <link rel="stylesheet" href="/content/bootstrap/css/bootstrap.css"/>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </head>
 <body>
 <header>
@@ -29,7 +30,7 @@
                         <?php if($this->isAdmin) :?>
                             <a href="/posts/createPost">Нов пост</a>
 
-                       <?php endif ?>
+                        <?php endif ?>
 
                     </li>
                     <li class="dropdown">
@@ -49,14 +50,12 @@
                     <button type="submit" class="btn btn-default">Търси</button>
                 </form>
                 <ul class="nav navbar-nav navbar-right">
-                    <li> </li>
-                    <li ><?php if($this->isLoggedIn) :?>
-                             <a style="display: inline-block" href="#"><?php echo "Име: ".$_SESSION['username']?></a>
-                             <a style="display: inline-block" href="/accounts/logout">Изход</a>
-                            <?php  else:?>
-
-                            <a style="display: inline-block" href="/accounts/login">Вход</a>
-                            <a style="display: inline-block" href="/accounts/register">Регистрация</a>
+                    <li><?php if($this->isLoggedIn) :?>
+                            <a id="header-right-bar-a" href="#"><?php echo "Име: ".$_SESSION['username']?></a>
+                            <a id="header-right-bar-a" href="/accounts/logout">Изход</a>
+                        <?php  else:?>
+                            <a id="header-right-bar-a" href="/accounts/login">Вход</a>
+                            <a id="header-right-bar-a" href="/accounts/register">Регистрация</a>
                         <?php endif ?>
                     </li>
                 </ul>
@@ -67,36 +66,39 @@
 </header>
 <?php include_once('views/layouts/messages.php'); ?>
 <div class="row">
-<div class="col-lg-10 col-lg-offset-1">
-    <?php if($this->controllerName == 'posts') :?>
-    <div class="col-md-2">
+    <div class="col-lg-10 col-lg-offset-1">
+        <?php if($this->controllerName == 'posts') :?>
+            <div class="col-md-2">
 
 
-        <div class="list-group">
-            <a href="#" class="list-group-item active">
-               Меню
-            </a>
-            <a href="/posts/index" class="list-group-item">Всички постове
-            </a>
-            <a href="/posts/mostVisitedPosts" class="list-group-item">Най-четени постове
-            </a>
-            <a href="/posts/mostCommentedPosts" class="list-group-item">Най-коментирани постове
-            </a>
-        </div>
-        <div class="list-group">
-            <a href="#" class="list-group-item active">
-                Най-посещавани тагове
-            </a>
-            <?php foreach($this->mostUsedTags as $tag){
-                 echo "<a href= "."/posts/postsByTag/".htmlspecialchars($tag['Name'])." class='list-group-item'>". htmlspecialchars($tag['Name'])."</a>";
-            }
-            ?>
-        </div>
+                <div class="list-group">
+                    <a href="#" class="list-group-item active">
+                        Меню
+                    </a>
+                    <a href="/posts/index" class="list-group-item">Всички постове
+                    </a>
+                    <a href="/posts/mostVisitedPosts" class="list-group-item">Най-четени постове
+                    </a>
+                    <a href="/posts/mostCommentedPosts" class="list-group-item">Най-коментирани постове
+                    </a>
+                </div>
+                <div class="list-group">
+                    <a href="#" class="list-group-item active">
+                        Най-посещавани тагове
+                    </a>
+                    <?php foreach($this->mostUsedTags as $tag){
+                        echo "<a href= "."/posts/postsByTag/".htmlspecialchars($tag['Name'])." class='list-group-item'>". htmlspecialchars($tag['Name'])."</a>";
+                    }
+                    ?>
+                </div>
 
-    </div>
-    <?php endif ?>
+            </div>
+        <div class="col-md-10">
+            <?php else: ?>
+            <div class="col-md-12">
+        <?php endif; ?>
 
-    <div class="col-md-10">
+
 
 
 

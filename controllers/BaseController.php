@@ -60,7 +60,6 @@ abstract class BaseController {
     protected function redirectToUrl($url) {
         header("Location: $url");
         exit();
-      //  die;
     }
 
     protected function redirect($controller, $action = null, $params = []) {
