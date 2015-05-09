@@ -1,0 +1,25 @@
+.post-in-post-list{
+    background-color: #c0c0c0;
+    border-top: 1px solid #000000;
+}
+ul.info-messages {
+    width: 80%;
+    margin: 10px auto;
+    padding: 10px;
+    background: #cfc;
+}
+
+ul.info-messages li {
+    display: block;
+}
+
+ul.error-messages {
+    width: 80%;
+    margin: 10px auto;
+    padding: 10px;
+    background: #fcc;
+}
+
+ul.error-messages li {
+    display: block;
+}
