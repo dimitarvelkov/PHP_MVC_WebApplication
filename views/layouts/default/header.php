@@ -53,7 +53,8 @@
                     <li ><?php if($this->isLoggedIn) :?>
                              <a style="display: inline-block" href="#"><?php echo "Име: ".$_SESSION['username']?></a>
                              <a style="display: inline-block" href="/accounts/logout">Изход</a>
-                            <?php else:?>
+                            <?php  else:?>
+
                             <a style="display: inline-block" href="/accounts/login">Вход</a>
                             <a style="display: inline-block" href="/accounts/register">Регистрация</a>
                         <?php endif ?>

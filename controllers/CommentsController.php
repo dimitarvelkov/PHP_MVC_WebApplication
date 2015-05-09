@@ -41,11 +41,12 @@ class CommentsController extends BaseController {
             $this->redirectToUrl('/posts/getPost/'.$postId);
         }
 
-        $isAddComment = $this->db->addComment($postId,$commentAuthorName,$commentContent,$commentAuthorEmail);
+        $isAddComment = $this->db->addComment($postId,$commentAuthorName,$commentContent,$_SESSION['userId'],$commentAuthorEmail);
 
         if($isAddComment){
-            $this->redirect("posts");
+            $this->redirectToUrl('/posts/getPost/'.$postId);
         }else{
+            $this->addErrorMessage("Проверете данните и опитаите отново");
             $this->redirectToUrl('/posts/getPost/'.$postId);
         }
     }

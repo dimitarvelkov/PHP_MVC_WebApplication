@@ -59,7 +59,8 @@ abstract class BaseController {
 
     protected function redirectToUrl($url) {
         header("Location: $url");
-        die;
+        exit();
+      //  die;
     }
 
     protected function redirect($controller, $action = null, $params = []) {
@@ -95,4 +96,5 @@ abstract class BaseController {
         $number = mb_strlen(preg_replace('/[^a-zA-Z\p{Cyrillic}]/u', '', $string), 'UTF-8');
         return $number;
     }
+
 }

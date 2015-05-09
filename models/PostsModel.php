@@ -3,12 +3,13 @@ class PostsModel extends BaseModel {
 
     public function getAll($page){
         $numberOfPostsOnPage = 5;
-        if($page==1){
+        $page=$page-1;
+
+        if($page==0){
             $offset = 0;
         }else{
-            $offset  =$page * $numberOfPostsOnPage;
+            $offset  = $page * $numberOfPostsOnPage;
         }
-
 
         $statement = self::$db-> query(' SELECT COUNT(DISTINCT p.title) AS NumberOfPosts
                                            FROM Posts AS p');
@@ -25,7 +26,6 @@ class PostsModel extends BaseModel {
         $statement->execute();
         $result =  $statement->get_result()->fetch_all(MYSQLI_ASSOC);
 
-       // $result =$statement->fetch_all(MYSQLI_ASSOC);
         return array("posts"=>$result,"pages"=>$numberOfPages);
     }
 
@@ -82,9 +82,9 @@ class PostsModel extends BaseModel {
         return $result;
     }
 
-    public function createPost($title,$content,$tagsArray){
-        $statement = self::$db-> prepare("INSERT INTO Posts (Title, Content, PostDate) VALUES (?, ?, NOW())");
-        $statement->bind_param("ss", $title, $content);
+    public function createPost($title,$content,$tagsArray,$userId){
+        $statement = self::$db-> prepare("INSERT INTO Posts (Title, Content, UserId, PostDate) VALUES (?, ?, ?, NOW())");
+        $statement->bind_param("ssi", $title, $content, $userId);
         $statement->execute();
 
         if($statement->affected_rows < 1){

@@ -7,9 +7,9 @@
  */
 
 class CommentsModel extends BaseModel {
-    public function addComment($postId, $commentAuthorName,$commentContent,$commentAuthorEmail=null){
-        $statement = self::$db-> prepare("INSERT INTO comments (PostId,AuthorName, AuthorEmail,Content ,CommentDate) VALUES (?, ?, ?, ?,NOW())");
-        $statement->bind_param("isss",$postId, $commentAuthorName, $commentAuthorEmail,$commentContent);
+    public function addComment($postId, $commentAuthorName,$commentContent,$userId,$commentAuthorEmail=null){
+        $statement = self::$db-> prepare("INSERT INTO comments (PostId,AuthorName, User_Id, AuthorEmail,Content ,CommentDate) VALUES (?, ?, ?, ?, ?,NOW())");
+        $statement->bind_param("isiss",$postId, $commentAuthorName,$userId, $commentAuthorEmail,$commentContent);
         $statement->execute();
         return $statement->affected_rows > 0;
     }

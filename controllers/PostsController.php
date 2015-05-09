@@ -13,6 +13,7 @@ class PostsController extends BaseController {
         $this->posts=$posts['posts'];
         $this->numberOfPages=$posts['pages'];
     }
+
     public function getAll($id){
         $posts = $this->db->getAll($id);
         $this->posts=$posts['posts'];
@@ -44,7 +45,7 @@ class PostsController extends BaseController {
             $tagsString=preg_replace('/[^a-zA-Z0-9а-яА-Я]+/u', ' ', $tag);
             $tagsArray = array_filter(explode(' ',$tagsString));
 
-            $this->db->createPost($title,$content,$tagsArray);
+            $this->db->createPost($title,$content,$tagsArray,$_SESSION['userId']);
             $this->redirect("posts");
         }
     }

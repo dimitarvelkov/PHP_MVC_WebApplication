@@ -75,6 +75,7 @@ class AccountsController extends  BaseController{
                 if($user['is_admin'] == 1){
                     $_SESSION['admin'] = $user['is_admin'];
                     $_SESSION['email'] = $user['email'];
+                    $_SESSION['userId'] = $user['id'];
                     $this->isAdmin=true;
                 }
 
@@ -95,6 +96,7 @@ class AccountsController extends  BaseController{
         unset($_SESSION['username']);
         unset($_SESSION['email']);
         unset($_SESSION['admin']);
+        unset($_SESSION['userId']);
         $this->isLoggedIn = false;
         $this->isLoggedIn = false;
         $this->addInfoMessage("Успешен изход от системата");
