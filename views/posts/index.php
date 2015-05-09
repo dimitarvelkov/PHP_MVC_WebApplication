@@ -5,10 +5,10 @@
     ?>
     <?php foreach($this->posts as $post):?>
         <div class="panel panel-primary">
-            <div class="panel-heading"  style="overflow:hidden; text-overflow:ellipsis;">
-                <h3 style="display: inline-block" class="panel-title">
+            <div class="panel-heading">
+                <h3 class="inline-header panel-title">
                     <a href="/posts/getPost/<?=$post["Id"]?>">
-                        <h2 style="display: inline-block ; margin-top: 0; margin-bottom: 0">
+                        <h2 class="posts-title">
                             <?=htmlspecialchars($post["Title"])?>
                         </h2>
                         <div>
@@ -16,12 +16,12 @@
                         </div>
                     </a>
                 </h3>
-                <div style="float: right">
+                <div class="pull-right">
                     Показвания: <?=$post["VisitCounter"]?>
                     <br/> Дата: <?=$post["PostDate"]?>
                 </div>
             </div>
-            <div class="panel-body" style="overflow:hidden;  text-overflow:ellipsis;">
+            <div class="postsShortContent panel-body">
                 <?php
                 $content  =$post["Content"];
                 $rest = substr($content, 0, 300);

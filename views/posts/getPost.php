@@ -3,8 +3,8 @@
         <h3 id="currentPostHeader">
                 <?= htmlspecialchars($this->currentPost["Title"])?>
         </h3>
-        <span style="float: right">
-            <?= $this->currentPost["PostDate"]?><br/>
+        <span class="pull-right">
+            <?= 'Дата: '. $this->currentPost["PostDate"]?><br/>
         </span>
     </div>
     <div class="panel-body" style="overflow:hidden;text-overflow:ellipsis;" >
@@ -13,25 +13,28 @@
     <div style="margin: 20px">
     <span>Коментари</span>
     <hr/>
-    <?php foreach($this->comments as $comment):?>
-        <div style="background-color: #fafafa; border: 1px solid #c0c0c0; border-radius: 10px;padding: 5px;margin-top: 8px">
 
-            <div  style="overflow:hidden;text-overflow:ellipsis;background-color:#ffffff;border: 1px solid #c0c0c0; border-radius: 10px;padding: 5px;" >
+    <?php foreach($this->comments as $comment):?>
+        <div class="comment-container">
+
+            <div  class="commentContentContainer" >
             <?=htmlspecialchars($comment["Content"])?>
             </div>
             Автор:<?=htmlspecialchars($comment["AuthorName"])?>
             <?php if(htmlspecialchars($comment["AuthorEmail"])!=''){
                 echo ",  Email: ".htmlspecialchars($comment["AuthorEmail"]);
             }?>
-            <span style="float: right">
+            <span class="pull-right">
                  Дата: <?=htmlspecialchars($comment["CommentDate"]);?>
             </span>
             <br/>
+            <a href="/comments/deleteComment/<?=$comment["id"]."/".$this->currentPost['Id'];?>">изтриване</a>
 
         </div>
     <?php endforeach ?>
+
     </div>
-    <form action="/comments/addComment/<?= $this->currentPost["Id"]?>" method="post" class="form-horizontal" style="margin: 20px">
+    <form action="/comments/addComment/<?= $this->currentPost["Id"]?>" method="post" id="addCommentForm" class="form-horizontal">
         <fieldset>
             <legend>Добавяе на коментари</legend>
             <?php if(!$this->isLoggedIn):?>

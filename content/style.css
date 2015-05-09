@@ -3,6 +3,7 @@
     border-top: 1px solid #000000;
 
 }
+
 ul.info-messages {
     width: 80%;
     margin: 10px auto;
@@ -31,9 +32,11 @@ ul.error-messages {
 ul.error-messages li {
     display: block;
 }
+
 #header-right-bar-a{
     display: inline-block;
 }
+
 #currentPostHeader{
     display: inline-block;
     overflow:hidden;
@@ -42,4 +45,40 @@ ul.error-messages li {
     margin-bottom: 0;
     text-overflow:ellipsis;
     display: inline-block;
+}
+
+.commentContentContainer{
+    overflow:hidden;
+    text-overflow:ellipsis;
+    background-color:#ffffff;
+    border: 1px solid #c0c0c0;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+#addCommentForm{
+    margin: 20px;
+}
+
+.postsShortContent {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.inline-header{
+    display: inline-block;
+}
+
+.posts-title{
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0
+}
+
+.comment-container{
+    background-color: #fafafa;
+    border: 1px solid #c0c0c0;
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 8px
 }

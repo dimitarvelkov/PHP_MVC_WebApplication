@@ -51,6 +51,14 @@ class CommentsController extends BaseController {
         }
     }
 
+    public function deleteComment($id,$test){
+        $isDeleted = $this->db->deleteComment($id);
+        if($isDeleted){
+            $this->redirectToUrl('/posts/getPost/'.$test);
+        }
+        $this->redirectToUrl('/posts/getPost/'.$test);
+    }
+
 
 }
 
