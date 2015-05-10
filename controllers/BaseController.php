@@ -14,6 +14,7 @@ abstract class BaseController {
         $this->action = $action;
         $this->controllerName = $controllerName;
         $this->onInit();
+
         if($_SERVER['REQUEST_METHOD']=='POST'){
             $this->isPost= true;
         }

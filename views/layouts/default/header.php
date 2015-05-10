@@ -84,7 +84,7 @@
                 </div>
                 <div class="list-group">
                     <a href="#" class="list-group-item active">
-                        Най-посещавани тагове
+                        Най-популяри тагове
                     </a>
                     <?php foreach($this->mostUsedTags as $tag){
                         echo "<a href= "."/posts/postsByTag/".htmlspecialchars($tag['Name'])." class='list-group-item'>". htmlspecialchars($tag['Name'])."</a>";

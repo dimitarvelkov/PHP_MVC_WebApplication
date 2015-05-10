@@ -38,23 +38,49 @@ class PostsController extends BaseController {
               $this->addErrorMessage("Заглавието трябва съдърж поне 5 букви.");
                 $this->redirect('posts','createPost');
             }
+
+            if($numberOfLettersInTitle > 45){
+                $this->addErrorMessage("Максималната дължина на заглавието е 45 символа.");
+                $this->redirect('posts','createPost');
+            }
+
             if($numberOfLettersInContent < 200){
                 $this->addErrorMessage("Поста трябва да съдържа поне 200 букви.");
                 $this->redirect('posts','createPost');
             }
+
             $tagsString=preg_replace('/[^a-zA-Z0-9а-яА-Я]+/u', ' ', $tag);
             $tagsArray = array_filter(explode(' ',$tagsString));
 
-            $this->db->createPost($title,$content,$tagsArray,$_SESSION['userId']);
-            $this->redirect("posts");
+            $isPostCreated = $this->db->createPost($title,$content,$tagsArray,$_SESSION['userId']);
+            if($isPostCreated){
+                $this->redirect("posts");
+            }else{
+                $this->addErrorMessage('Вече има създаден пост с това  заглавие');
+                $this->redirect('posts','createPost');
+            }
         }
     }
 
-    public function getPost($id){
+    public function deletePost($id){
+        $isPostDeleted  = $this->db->deletePost($id);
+        if($isPostDeleted) {
+            $this->redirect('posts');
+        }
+    }
 
-        $postWithComments =  $this->currentPost= $this->db->getPost($id);
-        $this->currentPost= $postWithComments["post"];
+    public function editPost($id){
+
+    }
+
+    public function getPostWithComments($id){
+        $postWithComments =  $this->currentPost= $this->db->getPostWithComments($id);
+        $this->currentPost = $postWithComments["post"];
         $this->comments= $postWithComments["comments"];
+        if($this->currentPost == null){
+            $this->addErrorMessage('Постът които искате да видите беше изтрит');
+            $this->redirect('posts');
+        }
     }
 
     public function postsByTag($tagFromUrl = null){

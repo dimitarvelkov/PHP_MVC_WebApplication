@@ -7,7 +7,7 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="inline-header panel-title">
-                    <a href="/posts/getPost/<?=$post["Id"]?>">
+                    <a href="/posts/getPostWithComments/<?=$post["Id"]?>">
                         <h2 class="posts-title">
                             <?=htmlspecialchars($post["Title"])?>
                         </h2>
@@ -27,7 +27,7 @@
                 $rest = substr($content, 0, 300);
                 echo  htmlspecialchars($rest)
                 ?>
-                <a href="/posts/getPost/<?=$post["Id"]?>">Виж още</a>
+                <a href="/posts/getPostWithComments/<?=$post["Id"]?>">Виж още</a>
             </div>
         </div>
     <?php endforeach ?>

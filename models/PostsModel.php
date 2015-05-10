@@ -19,7 +19,8 @@ class PostsModel extends BaseModel {
         $statement = self::$db-> prepare('SELECT p.Id, p.Title, p.Content, p.PostDate, p.VisitCounter,p.Tag, count(c.id) AS NumberOfComments
                                             FROM Posts AS p
                                             LEFT JOIN comments AS c
-                                            ON p.id = c.PostId GROUP BY p.Title
+                                            ON p.id = c.PostId
+                                            GROUP BY p.Title
                                             ORDER BY p.PostDate
                                             LIMIT ? OFFSET ?');
         $statement->bind_param("ii", $numberOfPostsOnPage,$offset);
@@ -61,7 +62,7 @@ class PostsModel extends BaseModel {
         return $statement->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function getPost($id){
+    public function getPostWithComments($id){
         $statement = self::$db-> prepare("SELECT * FROM Posts WHERE id = ?");
         $statement->bind_param("i", $id);
         $statement->execute();
@@ -72,7 +73,10 @@ class PostsModel extends BaseModel {
     }
 
     public function postsByTag($tag){
-        $statement = self::$db-> prepare("SELECT * FROM posts AS p
+        $statement = self::$db-> prepare("SELECT p.Id, p.Title, p.Content, p.PostDate, p.VisitCounter,p.Tag, count(c.id) AS NumberOfComments
+                                            FROM posts AS p
+                                            LEFT JOIN comments AS c
+                                            ON p.id = c.PostId
                                             JOIN post_tags AS x ON x.Post_id = p.Id
                                             JOIN tags AS t ON t.id = x.Tag_id
                                             WHERE t.name = ?");
@@ -135,6 +139,13 @@ class PostsModel extends BaseModel {
         }
 
         return true;
+    }
+
+    public function deletePost($id){
+        $statement = self::$db-> prepare("DELETE FROM posts WHERE id = ?;");
+        $statement->bind_param("i",$id);
+        $statement->execute();
+        return $statement->affected_rows > 0;
     }
 
     public function getPostComments($id){

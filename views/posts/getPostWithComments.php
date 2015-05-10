@@ -8,6 +8,11 @@
         </span>
     </div>
     <div class="panel-body" style="overflow:hidden;text-overflow:ellipsis;" >
+        <a href="/posts/deletePost/<?= $this->currentPost['Id']?>">Изтриване на поста</a>
+
+        <a href="/posts/editPost/--><?= $this->currentPost['Id']?>"> Корекция на поста</a>
+        <br/>
+        <?= $this->currentPost["Id"]?>
         <?= $this->currentPost["Content"]?>
     </div>
     <div style="margin: 20px">
@@ -16,7 +21,6 @@
 
     <?php foreach($this->comments as $comment):?>
         <div class="comment-container">
-
             <div  class="commentContentContainer" >
             <?=htmlspecialchars($comment["Content"])?>
             </div>
