@@ -21,7 +21,8 @@ class PostsController extends BaseController {
         $this->redirectToUrl('/posts/index/'.$id);
     }
 
-    public function createPost(){
+    public function createPost($createPost = null){
+
         if(!$this->isAdmin){
             $this->redirect('posts');
         }
@@ -52,7 +53,13 @@ class PostsController extends BaseController {
             $tagsString=preg_replace('/[^a-zA-Z0-9а-яА-Я]+/u', ' ', $tag);
             $tagsArray = array_filter(explode(' ',$tagsString));
 
-            $isPostCreated = $this->db->createPost($title,$content,$tagsArray,$_SESSION['userId']);
+//            $isPostCreated = false
+            if($createPost=='postForEdit'){
+                $isPostCreated = $this->db->createPost($title,$content,$tagsArray,$_SESSION['userId'],true);
+            }else{
+                $isPostCreated = $this->db->createPost($title,$content,$tagsArray,$_SESSION['userId']);
+            }
+
             if($isPostCreated){
                 $this->redirect("posts");
             }else{
@@ -70,13 +77,21 @@ class PostsController extends BaseController {
     }
 
     public function editPost($id){
+        if($this->isPost){
+            $this->createPost('postForEdit');
+        }else{
+            $currentPostWithTags = $this->db->getPost($id);
+            $this->currentPost = $currentPostWithTags['post'];
+            $this->currentPostTagsNames =$currentPostWithTags['tagsNames'];
+
+        }
 
     }
 
     public function getPostWithComments($id){
         $postWithComments =  $this->currentPost= $this->db->getPostWithComments($id);
         $this->currentPost = $postWithComments["post"];
-        $this->comments= $postWithComments["comments"];
+        $this->comments = $postWithComments["comments"];
         if($this->currentPost == null){
             $this->addErrorMessage('Постът които искате да видите беше изтрит');
             $this->redirect('posts');

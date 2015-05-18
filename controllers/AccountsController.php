@@ -44,12 +44,13 @@ class AccountsController extends  BaseController{
             {
                 $this->addErrorMessage("invalid usernaem");
             }
-            $isRegistered = $this->db->register($username,$password,$email);
+            $userId = $this->db->register($username,$password,$email);
 
-            if($isRegistered){
+            if($userId!=null){
                 $this->addInfoMessage("successful register");
                 $_SESSION['username'] = $username;
                 $_SESSION['email'] = $email;
+                $_SESSION['userId'] = $userId;
                 $this->isLoggedIn = true;
                 $this->redirect("posts");
             }

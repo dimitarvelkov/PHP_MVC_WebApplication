@@ -93,9 +93,9 @@
                 </div>
 
             </div>
-        <div class="col-md-10">
+        <div  id="container"  col-md-10">
             <?php else: ?>
-            <div class="col-md-12">
+            <div id="container" class="col-md-12">
         <?php endif; ?>
 
 

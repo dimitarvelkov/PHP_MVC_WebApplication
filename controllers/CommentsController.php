@@ -34,20 +34,20 @@ class CommentsController extends BaseController {
 
         if($numberOfLettersInAuthorName<3){
             $this->addErrorMessage("Името трябва да бъде поне с три букви");
-            $this->redirectToUrl('/posts/getPost/'.$postId);
+            $this->redirectToUrl('/posts/getPostWithComments/'.$postId);
         }
         if($numberOfLettersInContent<3){
             $this->addErrorMessage("Коментара трябва да бъде поне 10 букви");
-            $this->redirectToUrl('/posts/getPost/'.$postId);
+            $this->redirectToUrl('/posts/getPostWithComments/'.$postId);
         }
 
         $isAddComment = $this->db->addComment($postId,$commentAuthorName,$commentContent,$_SESSION['userId'],$commentAuthorEmail);
 
         if($isAddComment){
-            $this->redirectToUrl('/posts/getPost/'.$postId);
+            $this->redirectToUrl('/posts/getPostWithComments/'.$postId);
         }else{
             $this->addErrorMessage("Проверете данните и опитаите отново");
-            $this->redirectToUrl('/posts/getPost/'.$postId);
+            $this->redirectToUrl('/posts/getPostWithComments/'.$postId);
         }
     }
 
@@ -59,7 +59,7 @@ class CommentsController extends BaseController {
             $this->addErrorMessage("Опитаите отнво");
         }
 
-        $this->redirectToUrl('/posts/getPost/'.$test);
+        $this->redirectToUrl('/posts/getPostWithComments/'.$test);
     }
 
 

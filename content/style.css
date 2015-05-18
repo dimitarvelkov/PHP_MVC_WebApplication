@@ -82,3 +82,22 @@ ul.error-messages li {
     padding: 5px;
     margin-top: 8px
 }
+
+html,body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+
+#container {
+    min-height:100%;
+    position:relative;
+}
+
+#footer-container {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    background-color: #000000;
+    color: #ffffff;
+}

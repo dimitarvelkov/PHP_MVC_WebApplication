@@ -8,9 +8,11 @@
         </span>
     </div>
     <div class="panel-body" style="overflow:hidden;text-overflow:ellipsis;" >
-        <a href="/posts/deletePost/<?= $this->currentPost['Id']?>">Изтриване на поста</a>
+        <?php if($this->isAdmin):?>
+            <a href="/posts/deletePost/<?= $this->currentPost['Id']?>">Изтриване на поста</a>
+            <a href="/posts/editPost/<?= $this->currentPost['Id']?>"> Корекция на поста</a>
+        <?php endif ?>
 
-        <a href="/posts/editPost/--><?= $this->currentPost['Id']?>"> Корекция на поста</a>
         <br/>
         <?= $this->currentPost["Id"]?>
         <?= $this->currentPost["Content"]?>
@@ -32,7 +34,9 @@
                  Дата: <?=htmlspecialchars($comment["CommentDate"]);?>
             </span>
             <br/>
+            <?php if($this->isAdmin):?>
             <a href="/comments/deleteComment/<?=$comment["id"]."/".$this->currentPost['Id'];?>">изтриване</a>
+            <?php endif ?>
 
         </div>
     <?php endforeach ?>

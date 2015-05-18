@@ -13,10 +13,11 @@ class AccountsModel extends BaseModel {
 
         $hash_password = password_hash($password,PASSWORD_BCRYPT);
         $registerStatement = self::$db->prepare('INSERT INTO Users (username, pass_hash,email) VALUES (?,?,?)');
-        $registerStatement ->bind_param("sss", $username,$hash_password,$еmail);
-        $registerStatement ->execute();
+        $registerStatement->bind_param("sss", $username,$hash_password,$еmail);
+        $registerStatement->execute();
+        $userId = $registerStatement->insert_id;
 
-        return $registerStatement->affected_rows>0;
+        return $userId;
 
     }
 

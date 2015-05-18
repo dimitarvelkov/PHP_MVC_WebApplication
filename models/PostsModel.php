@@ -72,6 +72,23 @@ class PostsModel extends BaseModel {
         return array("post"=>$post,"comments"=>$comments);
     }
 
+    public function getPost($id){
+        $statement = self::$db-> prepare("SELECT * FROM Posts WHERE id = ?");
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        $post =  $statement->get_result()->fetch_assoc();
+
+        $statement = self::$db-> prepare(" SELECT t.name as TagsNames FROM Posts as p
+                                           JOIN post_tags AS x ON x.Post_id = p.Id
+                                           JOIN tags AS t ON t.id = x.Tag_id
+                                           WHERE p.id = ? ");
+        $statement->bind_param("i", $id);
+        $statement->execute();
+        $tagsNames = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+        return array("post"=>$post,"tagsNames"=>$tagsNames);
+
+    }
+
     public function postsByTag($tag){
         $statement = self::$db-> prepare("SELECT p.Id, p.Title, p.Content, p.PostDate, p.VisitCounter,p.Tag, count(c.id) AS NumberOfComments
                                             FROM posts AS p
@@ -86,7 +103,7 @@ class PostsModel extends BaseModel {
         return $result;
     }
 
-    public function createPost($title,$content,$tagsArray,$userId){
+    public function createPost($title,$content,$tagsArray,$userId,$isUpdate){
         $statement = self::$db-> prepare("INSERT INTO Posts (Title, Content, UserId, PostDate) VALUES (?, ?, ?, NOW())");
         $statement->bind_param("ssi", $title, $content, $userId);
         $statement->execute();
@@ -140,6 +157,8 @@ class PostsModel extends BaseModel {
 
         return true;
     }
+
+
 
     public function deletePost($id){
         $statement = self::$db-> prepare("DELETE FROM posts WHERE id = ?;");
